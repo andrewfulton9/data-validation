@@ -160,10 +160,9 @@ skip = ["cp312-*", "cp313-*", "*musllinux*", "pp*"]
 manylinux-x86_64-image = "manylinux2014"
 archs=["x86_64"]
 before-build = "yum install -y npm && npm install -g @bazel/bazelisk"
-test-sources = ["tensorflow_data_validation"]
 test-extras = ["test"]
 before-test="rm bazel-*"
-test-command="pytest"
+test-command="pytest {project}"
 
 
 [tool.cibuildwheel.macos]
