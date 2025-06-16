@@ -99,17 +99,7 @@ class _BazelBuildCommand(setuptools.Command):
             env=dict(os.environ, PYTHON_BIN_PATH=sys.executable),
         )
         subprocess.check_call(
-            ["echo", "$PWD"],
-            cwd=os.path.dirname(os.path.realpath(__file__)),
-            env=dict(os.environ, PYTHON_BIN_PATH=sys.executable),
-        )
-        subprocess.check_call(
             ["ls", "-al"],
-            cwd=os.path.dirname(os.path.realpath(__file__)),
-            env=dict(os.environ, PYTHON_BIN_PATH=sys.executable),
-        )
-        subprocess.check_call(
-            ["ls", "-al", "build/"],
             cwd=os.path.dirname(os.path.realpath(__file__)),
             env=dict(os.environ, PYTHON_BIN_PATH=sys.executable),
         )
