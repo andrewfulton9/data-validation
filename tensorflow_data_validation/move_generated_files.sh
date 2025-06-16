@@ -33,6 +33,7 @@ function tfdv::move_generated_files() {
   cp -f ${RUNFILES_DIR}/tensorflow_data_validation/anomalies/proto/validation_metadata_pb2.py \
     ${BUILD_WORKSPACE_DIRECTORY}/tensorflow_data_validation/anomalies/proto
   chmod +w "${BUILD_WORKSPACE_DIRECTORY}/${PYWRAP_TFDV}"
+  echo "finished moving generated files"
 }
 
 tfdv::move_generated_files
