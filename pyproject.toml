@@ -160,6 +160,7 @@ skip = ["cp312-*", "cp313-*", "*musllinux*", "pp*"]
 manylinux-x86_64-image = "manylinux2014"
 archs=["x86_64"]
 before-build = "yum install -y npm && npm install -g @bazel/bazelisk"
+test_extras = ["test"]
 before-test="rm bazel-*"
 test-command="pytest"
 
