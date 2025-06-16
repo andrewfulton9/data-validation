@@ -77,7 +77,14 @@ class _BazelBuildCommand(setuptools.Command):
             )
         self._additional_build_options = []
         if platform.system() == "Darwin":
-            self._additional_build_options = ["--macos_minimum_os=10.14"]
+            # This flag determines the platform qualifier of the macos wheel.
+            if platform.machine() == "arm64":
+                self._additional_build_options = [
+                    "--macos_minimum_os=11.0",
+                    "--config=macos_arm64",
+                ]
+            else:
+                self._additional_build_options = ["--macos_minimum_os=10.14"]
 
     def run(self):
         check_call_call = ([self._bazel_cmd, "run", "-c", "opt"]
