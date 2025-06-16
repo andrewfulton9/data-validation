@@ -80,10 +80,12 @@ class _BazelBuildCommand(setuptools.Command):
             self._additional_build_options = ["--macos_minimum_os=10.14"]
 
     def run(self):
-        subprocess.check_call(
-            [self._bazel_cmd, "run", "-c", "opt"]
+        check_call_call = ([self._bazel_cmd, "run", "-c", "opt"]
             + self._additional_build_options
-            + ["//tensorflow_data_validation:move_generated_files"],
+            + ["//tensorflow_data_validation:move_generated_files"])
+        print(check_call_call )
+        subprocess.check_call(
+            check_call_call,
             # Bazel should be invoked in a directory containing bazel WORKSPACE
             # file, which is the root directory.
             cwd=os.path.dirname(os.path.realpath(__file__)),
