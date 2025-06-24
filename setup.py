@@ -87,10 +87,12 @@ class _BazelBuildCommand(setuptools.Command):
                 self._additional_build_options = ["--macos_minimum_os=10.14"]
 
     def run(self):
-        check_call_call = ([self._bazel_cmd, "run", "-c", "opt"]
+        check_call_call = (
+            [self._bazel_cmd, "run", "-c", "opt"]
             + self._additional_build_options
-            + ["//tensorflow_data_validation:move_generated_files"])
-        print(check_call_call )
+            + ["//tensorflow_data_validation:move_generated_files"]
+        )
+        print(check_call_call)
         subprocess.check_call(
             check_call_call,
             # Bazel should be invoked in a directory containing bazel WORKSPACE
@@ -103,8 +105,6 @@ class _BazelBuildCommand(setuptools.Command):
             cwd=os.path.dirname(os.path.realpath(__file__)),
             env=dict(os.environ, PYTHON_BIN_PATH=sys.executable),
         )
-
-
 
 
 # TFDV is not a purelib. However because of the extension module is not built
