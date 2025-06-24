@@ -161,8 +161,8 @@ manylinux-x86_64-image = "manylinux2014"
 archs=["x86_64"]
 before-build = "yum install -y npm && npm install -g @bazel/bazelisk"
 #test-extras = ["test"]
-#before-test="rm bazel-*"
-#test-command="pytest {project}"
+before-test="rm bazel-* && pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ ajf-test-tfx-bsl"
+test-command="pytest {project}"
 
 
 [tool.cibuildwheel.macos]

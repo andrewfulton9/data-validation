@@ -230,12 +230,12 @@ setup(
             nightly=">=1.18.0.dev",
             git_master="@git+https://github.com/tensorflow/metadata@master",
         ),
-        "tfx-bsl"
-        + select_constraint(
-            default=">=1.17.1,<1.18",
-            nightly=">=1.18.0.dev",
-            git_master="@git+https://github.com/tensorflow/tfx-bsl@master",
-        ),
+        "ajf-test-tfx-bsl>=1.18.0.dev",
+        # + select_constraint(
+        #     default=">=1.17.1,<1.18",
+        #     nightly=">=1.18.0.dev",
+        #     git_master="@git+https://github.com/tensorflow/tfx-bsl@master",
+        # ),
     ],
     extras_require={
         "mutual-information": _make_mutual_information_requirements(),
