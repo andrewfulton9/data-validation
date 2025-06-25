@@ -77,15 +77,31 @@ class _BazelBuildCommand(setuptools.Command):
             )
         self._additional_build_options = []
         if platform.system() == "Darwin":
-            self._additional_build_options = ["--macos_minimum_os=10.14"]
+            # This flag determines the platform qualifier of the macos wheel.
+            if platform.machine() == "arm64":
+                self._additional_build_options = [
+                    "--macos_minimum_os=11.0",
+                    "--config=macos_arm64",
+                ]
+            else:
+                self._additional_build_options = ["--macos_minimum_os=10.14"]
 
     def run(self):
-        subprocess.check_call(
+        check_call_call = (
             [self._bazel_cmd, "run", "-c", "opt"]
             + self._additional_build_options
-            + ["//tensorflow_data_validation:move_generated_files"],
+            + ["//tensorflow_data_validation:move_generated_files"]
+        )
+        print(check_call_call)
+        subprocess.check_call(
+            check_call_call,
             # Bazel should be invoked in a directory containing bazel WORKSPACE
             # file, which is the root directory.
+            cwd=os.path.dirname(os.path.realpath(__file__)),
+            env=dict(os.environ, PYTHON_BIN_PATH=sys.executable),
+        )
+        subprocess.check_call(
+            ["ls", "-al"],
             cwd=os.path.dirname(os.path.realpath(__file__)),
             env=dict(os.environ, PYTHON_BIN_PATH=sys.executable),
         )
@@ -214,17 +230,17 @@ setup(
             nightly=">=1.18.0.dev",
             git_master="@git+https://github.com/tensorflow/metadata@master",
         ),
-        "tfx-bsl"
-        + select_constraint(
-            default=">=1.17.1,<1.18",
-            nightly=">=1.18.0.dev",
-            git_master="@git+https://github.com/tensorflow/tfx-bsl@master",
-        ),
+        "ajf-test-tfx-bsl>=1.18.0.dev",
+        # + select_constraint(
+        #     default=">=1.17.1,<1.18",
+        #     nightly=">=1.18.0.dev",
+        #     git_master="@git+https://github.com/tensorflow/tfx-bsl@master",
+        # ),
     ],
     extras_require={
         "mutual-information": _make_mutual_information_requirements(),
         "visualization": _make_visualization_requirements(),
-        "dev": ["precommit"],
+        "dev": ["precommit", "cibuildwheel", "build"],
         "docs": _make_docs_requirements(),
         "test": [
             "pytest",
