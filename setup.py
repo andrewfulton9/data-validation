@@ -244,7 +244,7 @@ setup(
             nightly=">=1.18.0.dev",
             git_master="@git+https://github.com/tensorflow/metadata@master",
         ),
-        "ajf-test-tfx-bsl==1.18.1",
+        "ajf-test-tfx-bsl==1.18.2.dev0",
         # + select_constraint(
         #     default=">=1.17.1,<1.18",
         #     nightly=">=1.18.0.dev",
