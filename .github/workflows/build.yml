@@ -47,7 +47,7 @@ jobs:
   upload_to_pypi:
     name: Upload to Test PyPI
     runs-on: ubuntu-latest
-    if: (github.event_name == 'release' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'workflow_dispatch')
+    # if: (github.event_name == 'release' && startsWith(github.ref, 'refs/tags')) || (github.event_name == 'workflow_dispatch')
     needs: [build]
     environment:
       name: testpypi
